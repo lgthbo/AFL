@@ -2822,21 +2822,22 @@ static void perform_dry_run(char** argv) {
           cal_failures++;
           break;
         }
+        u8  *fn,*fnn;
+        u8  *out_dir_w; 
+        u8  *cp;
+
+        out_dir_w = ck_alloc(20);
+        strncpy(out_dir_w,out_dir,strlen(out_dir) - 8);
+
+        fn = alloc_printf("%s/input/seed0",out_dir_w);
+        fnn = alloc_printf("%s/crashes/seed0",out_dir);
+        cp = alloc_printf("cp %s %s",fn,fnn);
+        if(system(cp) < 0){
+          FATAL("Test case results in a crash and cp to crashes dir fail.");
+        }
 
         if (mem_limit) {
-          u8  *fn,*fnn;
-          u8  *out_dir_w; 
-          u8  *cp;
-
-          out_dir_w = ck_alloc(20);
-          strncpy(out_dir_w,out_dir,strlen(out_dir) - 8);
-
-          fn = alloc_printf("%s/input/seed0",out_dir_w);
-          fnn = alloc_printf("%s/crashes/seed0",out_dir);
-          cp = alloc_printf("cp %s %s",fn,fnn);
-          if(system(cp) < 0){
-            FATAL("Test case results in a crash and cp to crashes dir fail.");
-          }
+          
 
           SAYF("\n" cLRD "[-] " cRST
                "Oops, the program crashed with one of the test cases provided. There are\n"
