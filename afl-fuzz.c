@@ -2775,19 +2775,7 @@ static void perform_dry_run(char** argv) {
 
       case FAULT_TMOUT:
 
-        u8  *fn,*fnn;
-        u8  *out_dir_w; 
-        u8  *cp;
 
-        out_dir_w = ck_alloc(20);
-        strncpy(out_dir_w,out_dir,strlen(out_dir) - 8);
-
-        fn = alloc_printf("%s/input/seed0",out_dir_w);
-        fnn = alloc_printf("%s/hangs/seed0",out_dir);
-        cp = alloc_printf("cp %s %s",fn,fnn);
-        if(system(cp) < 0){
-          FATAL("Test case results in a hang and cp to hangs dir fail.");
-        }
 
         if (timeout_given) {
 
@@ -2801,7 +2789,19 @@ static void perform_dry_run(char** argv) {
             cal_failures++;
             break;
           }
+          u8  *tfn,*tfnn;
+          u8  *tout_dir_w; 
+          u8  *tcp;
 
+          tout_dir_w = ck_alloc(20);
+          strncpy(tout_dir_w,out_dir,strlen(out_dir) - 8);
+
+          tfn = alloc_printf("%s/input/seed0",tout_dir_w);
+          tfnn = alloc_printf("%s/hangs/seed0",out_dir);
+          tcp = alloc_printf("cp %s %s",tfn,tfnn);
+          if(system(tcp) < 0){
+            FATAL("Test case results in a hang and cp to hangs dir fail.");
+          } 
           SAYF("\n" cLRD "[-] " cRST
                "The program took more than %u ms to process one of the initial test cases.\n"
                "    Usually, the right thing to do is to relax the -t option - or to delete it\n"
@@ -2813,7 +2813,19 @@ static void perform_dry_run(char** argv) {
           FATAL("Test case '%s' results in a timeout", fn);
 
         } else {
+          u8  *tfn,*tfnn;
+          u8  *tout_dir_w; 
+          u8  *tcp;
 
+          tout_dir_w = ck_alloc(20);
+          strncpy(tout_dir_w,out_dir,strlen(out_dir) - 8);
+
+          tfn = alloc_printf("%s/input/seed0",tout_dir_w);
+          tfnn = alloc_printf("%s/hangs/seed0",out_dir);
+          tcp = alloc_printf("cp %s %s",tfn,tfnn);
+          if(system(tcp) < 0){
+            FATAL("Test case results in a hang and cp to hangs dir fail.");
+          } 
           SAYF("\n" cLRD "[-] " cRST
                "The program took more than %u ms to process one of the initial test cases.\n"
                "    This is bad news; raising the limit with the -t option is possible, but\n"
