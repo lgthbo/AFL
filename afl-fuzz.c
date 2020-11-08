@@ -493,7 +493,7 @@ static void bind_to_free_cpu(void) {
   for (i = 0; i < cpu_core_count; i++) if (!cpu_used[i]) break;
 
   if (i == cpu_core_count) {
-
+    // Alvin place to write error
     SAYF("\n" cLRD "[-] " cRST
          "Uh-oh, looks like all %u CPU cores on your system are allocated to\n"
          "    other instances of afl-fuzz (or similar CPU-locked tasks). Starting\n"
@@ -2274,6 +2274,14 @@ EXP_ST void init_forkserver(char** argv) {
 
   }
 
+  FILE *fp;
+  u8 *fn;
+  char errmsg[] = "Target program error cause fuzzer cannot initial.";
+  fn = alloc_printf("%s/error",out_dir);
+
+  fp = fopen(fn,"w");
+  fwrite(errmsg,1,sizeof(errmsg),fp);
+  fclose(fp);
   FATAL("Fork server handshake failed");
 
 }
