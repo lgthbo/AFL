@@ -499,7 +499,7 @@ static void bind_to_free_cpu(void) {
     fn = alloc_printf("%s/error",out_dir);
 
     fp = fopen(fn,"w");
-    fwrite(errmsg,1,sizeof(errmsg),fp);
+    fwrite(errmsg,1,sizeof(errmsg)-1,fp);
     fclose(fp);
     SAYF("\n" cLRD "[-] " cRST
          "Uh-oh, looks like all %u CPU cores on your system are allocated to\n"
@@ -2287,7 +2287,7 @@ EXP_ST void init_forkserver(char** argv) {
   fn = alloc_printf("%s/error",out_dir);
 
   fp = fopen(fn,"w");
-  fwrite(errmsg,1,sizeof(errmsg),fp);
+  fwrite(errmsg,1,sizeof(errmsg)-1,fp);
   fclose(fp);
   FATAL("Fork server handshake failed");
 
