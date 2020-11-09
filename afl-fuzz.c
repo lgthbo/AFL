@@ -2283,7 +2283,7 @@ EXP_ST void init_forkserver(char** argv) {
 
   FILE *fp;
   u8 *fn;
-  char errmsg[] = "Target program error cause fuzzer cannot initial.";
+  char errmsg[] = "Compiler error.";
   fn = alloc_printf("%s/error",out_dir);
 
   fp = fopen(fn,"w");
