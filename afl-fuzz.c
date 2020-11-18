@@ -2283,7 +2283,7 @@ EXP_ST void init_forkserver(char** argv) {
 
   FILE *fp;
   u8 *fn;
-  char errmsg[] = "Compiler error.";
+  char errmsg[] = "Compiler error";
   fn = alloc_printf("%s/error",out_dir);
 
   fp = fopen(fn,"w");
@@ -2938,7 +2938,7 @@ static void perform_dry_run(char** argv) {
 
         }
 
-        FATAL("Test case '%s' results in a crash", fn);
+         FATAL("Test case '%s' results in a crash", fn);
 
       case FAULT_ERROR:
 
